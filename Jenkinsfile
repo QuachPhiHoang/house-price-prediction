@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'Testing model correctness..'
                 dir('python_app') {
-                sh 'pip install -r requirements.txt && pytest'
+                    sh 'pip install -r requirements.txt && pytest'
                 }
             }
         }
