@@ -33,7 +33,12 @@ pipeline {
                 script {
                     echo 'Building image for deployment..'
                     dir('python_app') {
-                        dockerImage = docker.build registry + ":$BUILD_NUMBER".forPlatform('linux/amd64') 
+                         def fullImageName = "${registry}:${env.BUILD_NUMBER}" // Sử dụng GString để nối chuỗi an toàn
+                        // Hoặc đơn giản hơn:
+                        // def fullImageName = registry + ":" + env.BUILD_NUMBER
+
+                        // Bước 2: Build image và chỉ định nền tảng
+                        dockerImage = docker.build(fullImageName).forPlatform('linux/amd64') // <-- Sửa lại dòng này
                     }
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
