@@ -34,6 +34,7 @@ pipeline {
                     echo 'Building image for deployment..'
                     dir('python_app') {
                         dockerImage = docker.build registry + ":$BUILD_NUMBER" + '.'
+                        .forPlatform('linux/amd64') 
                     }
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
