@@ -38,7 +38,7 @@ pipeline {
                         // def fullImageName = registry + ":" + env.BUILD_NUMBER
 
                         // Bước 2: Build image và chỉ định nền tảng
-                        dockerImage = docker.build(fullImageName, "--platform linux/amd64") // <-- Sửa lại dòng này
+                        dockerImage = docker.build(fullImageName, "--platform linux/amd64 .") // <-- Sửa lại dòng này
                     }
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
